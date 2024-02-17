@@ -1,0 +1,2 @@
+pypyodbc documentation
+https://github.com/pypyodbc/pypyodbc/blob/main/README.md
