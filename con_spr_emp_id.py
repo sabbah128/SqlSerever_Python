@@ -17,7 +17,7 @@ conn = f"""
 
 connection = odbc.connect(conn)
 cursor = connection.cursor()
-print('\n*** SQL Server is connected. ***')
+print('*** SQL Server is connected. ***')
 
 print('\nempid, shipperid, freight, shipcountry')
 query = 'SELECT TOP (5) empid, shipperid, freight, shipcountry FROM Sales.Orders'
@@ -26,11 +26,20 @@ rows = cursor.fetchall()
 for row in rows:
     print(row)
 
+print('\n>>> Execute Procedure')
 emp_id = 2
 query = f'EXECUTE spr_emp_id {emp_id};'
 cursor.execute(query)
 rows = cursor.fetchall()
-print('\nSum of freight: ', sum(r_col[1] for r_col in rows))
+print('Sum of freight: ', sum(r_col[1] for r_col in rows))
+
+print('\n>>> Execute Function')
+# Min_Max = 'min'
+Min_Max = 'max'
+query = f"SELECT dbo.fn_M_freight ('{Min_Max}');"
+cursor.execute(query)
+rows = cursor.fetchall()
+print(rows[0])
 
 query = 'SELECT * FROM Sum_freight'
 cursor.execute(query)
